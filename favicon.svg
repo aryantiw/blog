@@ -1,1 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#e85d3f"/><path d="M17 17h30v7H25v8h18v7H25v8h22v7H17z" fill="#fffaf3"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="aryan:notes favicon">
+  <rect width="64" height="64" rx="16" fill="#263b35"/>
+  <rect x="10" y="10" width="44" height="44" rx="12" fill="#e85d3f" opacity="0.2"/>
+  <text x="50%" y="55%" text-anchor="middle" font-size="28" font-weight="700" font-family="DM Sans, Segoe UI, sans-serif" fill="#f8f6ef">a:</text>
+  <path d="M39 18v27h-5V18h5zm-5 0h5v5h-5V18z" fill="#e85d3f" opacity="0.9"/>
+</svg>
