@@ -1,0 +1,6 @@
+{
+  "name": "aryan-notes",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node scripts/build-posts.mjs" }
+}
