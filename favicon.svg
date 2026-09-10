@@ -1,6 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="aryan:notes favicon">
-  <rect width="64" height="64" rx="16" fill="#263b35"/>
-  <rect x="10" y="10" width="44" height="44" rx="12" fill="#e85d3f" opacity="0.2"/>
-  <text x="50%" y="55%" text-anchor="middle" font-size="28" font-weight="700" font-family="DM Sans, Segoe UI, sans-serif" fill="#f8f6ef">a:</text>
-  <path d="M39 18v27h-5V18h5zm-5 0h5v5h-5V18z" fill="#e85d3f" opacity="0.9"/>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#1b2b2a"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="url(#bg)"/>
+  <rect x="9" y="9" width="46" height="46" rx="14" fill="#f4efe7" opacity="0.08"/>
+  <path d="M19 18h11.2c8.5 0 15.4 6.9 15.4 15.4v2.2c0 8.5-6.9 15.4-15.4 15.4H19V18zm9.4 8.8v13.4h1.8c4 0 7.2-3.2 7.2-7.2s-3.2-7.2-7.2-7.2h-1.8z" fill="#f4efe7"/>
+  <circle cx="46" cy="18" r="6" fill="#ef6f4d"/>
 </svg>

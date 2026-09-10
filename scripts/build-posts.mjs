@@ -45,12 +45,12 @@ const header = ({ title, description, canonical, css = 'css/', jsonLd }) => `<!d
 <html lang="en"><head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="${escapeHtml(description)}"><meta name="author" content="Aryan Tiwari">
-  <meta name="theme-color" content="#0b0d0f"><meta property="og:title" content="${escapeHtml(title)}">
+  <meta name="theme-color" content="#0b0d0f"><meta property="og:title" content="${escapeHtml(siteName)}">
   <meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="${canonical}">
   <meta property="og:site_name" content="${escapeHtml(siteName)}"><meta property="og:type" content="${jsonLd['@type'] === 'Article' ? 'article' : 'website'}">
   <meta name="twitter:card" content="summary"><link rel="canonical" href="${canonical}"><link rel="icon" href="${css}../favicon.svg">
   <link rel="stylesheet" href="${css}style.css"><link rel="stylesheet" href="${css}dark.css">
-  <script type="application/ld+json">${JSON.stringify(jsonLd)}</script><title>${escapeHtml(title)}</title>
+  <script type="application/ld+json">${JSON.stringify(jsonLd)}</script><title>${escapeHtml(siteName)}</title>
 </head>`;
 
 const footer = (prefix = '') => `<footer><div class="shell footer"><span>Made slowly, published openly.</span><a href="https://github.com/aryantiw">GitHub ↗</a></div></footer>
@@ -65,7 +65,7 @@ const categories = [...new Set(posts.map((post) => post.category))];
 const tags = [...new Set(posts.flatMap((post) => post.tags))];
 
 const homeRows = remaining.map((post, index) => `<a class="post" href="${postLink(post)}"><div class="number">${String(index + 1).padStart(2, '0')}</div><div><span class="category">${escapeHtml(post.category)}</span><h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.description)}</p></div><div class="post-time"><time datetime="${post.pubDate}">${date(post.pubDate)}</time><span>${escapeHtml(post.readingTime)}</span></div><span class="arrow">↗</span></a>`).join('');
-const homeHeader = header({ title: 'aryan:notes | journal', description: 'Essays on existence, science, philosophy, desire, humanity, and the questions that shape us.', canonical: siteUrl, jsonLd: { '@context': 'https://schema.org', '@type': 'Blog', name: siteName, url: siteUrl, author: { '@type': 'Person', name: 'Aryan Tiwari' } } });
+const homeHeader = header({ title: siteName, description: 'Essays on existence, science, philosophy, desire, humanity, and the questions that shape us.', canonical: siteUrl, jsonLd: { '@context': 'https://schema.org', '@type': 'Blog', name: siteName, url: siteUrl, author: { '@type': 'Person', name: 'Aryan Tiwari' } } });
 const home = `${homeHeader}
 <body><main>${navigation()}<section class="hero shell"><p class="eyebrow">A personal journal</p><h1>Thinking out loud,<br><em>one page at a time.</em></h1><p class="intro">Essays and observations on being human, building things, and finding a little more clarity in the noise.</p></section>
 <section class="latest shell"><div class="rule-title"><span>Latest note</span><time datetime="${featured.pubDate}">${date(featured.pubDate)}</time></div><a class="featured" href="${postLink(featured)}"><div class="featured-copy"><span class="category">${escapeHtml(featured.category)}</span><h2>${escapeHtml(featured.title)}</h2><p>${escapeHtml(featured.description)}</p><span class="read">Read the essay <span>↗</span></span></div><div class="mark"><span>${escapeHtml(featured.title[0])}</span></div></a></section>
@@ -76,7 +76,7 @@ await Promise.all(posts.map(async (post, index) => {
   const previous = posts[index + 1];
   const next = posts[index - 1];
   const canonical = `${siteUrl}${post.slug}/`;
-  const article = `${header({ title: `${post.title} | ${siteName}`, description: post.description, canonical, css: '../css/', jsonLd: { '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.description, datePublished: post.pubDate, author: { '@type': 'Person', name: post.author }, mainEntityOfPage: canonical } })}
+  const article = `${header({ title: siteName, description: post.description, canonical, css: '../css/', jsonLd: { '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.description, datePublished: post.pubDate, author: { '@type': 'Person', name: post.author }, mainEntityOfPage: canonical } })}
 <body><main>${navigation('../')}<article class="article shell"><a class="back" href="../index.html">← Back to the journal</a><header class="article-head"><div class="meta"><span>${escapeHtml(post.category)}</span><span>${escapeHtml(post.readingTime)}</span></div><h1>${escapeHtml(post.title)}</h1><p class="description">${escapeHtml(post.description)}</p><div class="byline"><span>By ${escapeHtml(post.author)}</span><time datetime="${post.pubDate}">${date(post.pubDate, true)}</time></div></header><div class="article-body"><aside><span>In this note</span>${post.tags.map((tag) => `<a href="../index.html#${encodeURIComponent(tag)}">#${escapeHtml(tag)}</a>`).join('')}</aside><div class="prose">${markdownToHtml(post.body)}</div></div><nav class="article-nav" aria-label="Article navigation">${previous ? `<a href="../${postLink(previous)}"><span>← Previous</span><strong>${escapeHtml(previous.title)}</strong></a>` : '<span></span>'}${next ? `<a class="next" href="../${postLink(next)}"><span>Next →</span><strong>${escapeHtml(next.title)}</strong></a>` : '<span></span>'}</nav></article></main>${footer('../')}`;
   await mkdir(new URL(`${post.slug}/`, root), { recursive: true });
   await writeFile(new URL(`${post.slug}/index.html`, root), article);
